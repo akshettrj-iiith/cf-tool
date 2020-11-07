@@ -16,8 +16,8 @@ import (
 )
 
 const version = "v1.0.0"
-const configPath = "~/.cf/config"
-const sessionPath = "~/.cf/session"
+const configPath = "~/.config/cf/config"
+const sessionPath = "~/.config/cf/session"
 
 func main() {
 	usage := `Codeforces Tool $%version%$ (cf). https://github.com/xalanq/cf-tool
@@ -112,8 +112,8 @@ Examples:
 File:
   cf will save some data in some files:
 
-  "~/.cf/config"        Configuration file, including templates, etc.
-  "~/.cf/session"       Session file, including cookies, handle, password, etc.
+  "~/.config/cf/config"        Configuration file, including templates, etc.
+  "~/.config/cf/session"       Session file, including cookies, handle, password, etc.
 
   "~" is the home directory of current user in your system.
 
