@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"path/filepath"
 
 	"github.com/fatih/color"
 	ansi "github.com/k0kubun/go-ansi"
@@ -16,10 +17,20 @@ import (
 )
 
 const version = "v1.0.0"
-const configPath = "~/.config/cf/config"
-const sessionPath = "~/.config/cf/session"
+var configPath string
+var sessionPath string
 
 func main() {
+
+	userConfigDirectory, userConfigDirectorySet := os.LookupEnv("XDG_CONFIG_DIR")
+
+	if userConfigDirectorySet == false {
+		userConfigDirectory = "~/.config"
+	}
+
+	configPath = filepath.Join(userConfigDirectory, "cf", "config")
+	sessionPath = filepath.Join(userConfigDirectory, "cf", "session")
+
 	usage := `Codeforces Tool $%version%$ (cf). https://github.com/xalanq/cf-tool
 
 You should run "cf config" to configure your handle, password and code
@@ -112,8 +123,8 @@ Examples:
 File:
   cf will save some data in some files:
 
-  "~/.config/cf/config"        Configuration file, including templates, etc.
-  "~/.config/cf/session"       Session file, including cookies, handle, password, etc.
+  "~/.cf/config"        Configuration file, including templates, etc.
+  "~/.cf/session"       Session file, including cookies, handle, password, etc.
 
   "~" is the home directory of current user in your system.
 
