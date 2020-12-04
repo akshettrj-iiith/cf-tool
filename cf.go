@@ -17,20 +17,9 @@ import (
 )
 
 const version = "v1.0.0"
-var configPath string
-var sessionPath string
 
 func main() {
-
-	userConfigDirectory, userConfigDirectorySet := os.LookupEnv("XDG_CONFIG_DIR")
-
-	if userConfigDirectorySet == false {
-		userConfigDirectory = "~/.config"
-	}
-
-	configPath = filepath.Join(userConfigDirectory, "cf", "config")
-	sessionPath = filepath.Join(userConfigDirectory, "cf", "session")
-
+	
 	usage := `Codeforces Tool $%version%$ (cf). https://github.com/xalanq/cf-tool
 
 You should run "cf config" to configure your handle, password and code
@@ -162,6 +151,15 @@ Script in template:
 	usage = strings.Replace(usage, `$%version%$`, version, 1)
 	opts, _ := docopt.ParseArgs(usage, os.Args[1:], fmt.Sprintf("Codeforces Tool (cf) %v", version))
 	opts[`{version}`] = version
+	
+	userConfigDirectory, userConfigDirectorySet := os.LookupEnv("XDG_CONFIG_DIR")
+
+	if userConfigDirectorySet == false {
+		userConfigDirectory = "~/.config"
+	}
+
+	configPath = filepath.Join(userConfigDirectory, "cf", "config")
+	sessionPath = filepath.Join(userConfigDirectory, "cf", "session")
 
 	cfgPath, _ := homedir.Expand(configPath)
 	clnPath, _ := homedir.Expand(sessionPath)
